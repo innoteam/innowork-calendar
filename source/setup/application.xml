@@ -1,0 +1,67 @@
+<?xml version='1.0'?>
+<application>
+
+	<definition>
+		<idname>innowork-calendar</idname>
+		<release>
+			<version>2.0.0</version>
+			<date>2014/01/10</date>
+			<changesfile>CHANGES</changesfile>
+		</release>
+		<description>Innowork Calendar</description>
+		<category>intranet</category>
+		<iconfile></iconfile>
+		<dependencies>
+			<dependency>innowork-core[3.1]</dependency>
+			<dependency>innomatic[6.2]</dependency>
+		</dependencies>
+		<options>
+			<!-- <option></option> -->
+		</options>
+		<legal>
+			<author>
+				<name>Innoteam S.r.l.</name>
+				<email>info@innoteam.it</email>
+				<web>http://www.innoteam.it/</web>
+			</author>
+			<copyright>Copyright (c) 2002-2014 Innoteam Srl</copyright>
+			<license>Commercial</license>
+			<licensefile>LICENSE</licensefile>
+		</legal>
+		<support>
+			<supportemail>helpdesk@innoteam.it</supportemail>
+			<bugsemail>helpdesk@innoteam.it</bugsemail>
+			<maintainer>
+				<name>Alex Pagnoni</name>
+				<email>alex.pagnoni@innoteam.it</email>
+			</maintainer>
+		</support>
+	</definition>
+
+	<components>
+
+		<!-- Calendar -->
+
+		<domainpanel name="innoworkcalendar" file="innoworkcalendar.php"
+			category="1summary" themeicon="1day" themeicontype="apps"
+			catalog="innowork-calendar::calendar_misc" />
+
+		<domaintable name="innowork_calendar"
+			file="innowork_calendar.xml" />
+
+		<catalog name="innowork-calendar" />
+
+		<wuiwidget name="innoworkcalendar"
+			file="WuiInnoworkcalendar.php" />
+
+		<class name="innowork/calendar/InnoworkEvent.php" />
+		<class name="innowork/calendar/InnoworkEventFactory.php" />
+
+		<innoworkitemtype name="event" file="event"
+			catalog="innowork-calendar::calendar_misc"
+			classfile="innowork/calendar/InnoworkEvent.php" classname="InnoworkEvent" icon="1day"
+			icontype="apps" domainpanel="innoworkcalendar" miniicon="edit"
+			summaryname="calendar-name" showmode="list" />
+
+	</components>
+</application>

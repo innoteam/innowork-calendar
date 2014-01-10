@@ -1,0 +1,25 @@
+<?xml version='1.0'?>
+<database>
+
+    <table name="innowork_calendar">
+        <field	name="id"	type="integer"	notnull="1"/>
+        <field	name="ownerid"	type="integer"	notnull="1"/>
+        <field  name="description"  type="text"/>
+        <field  name="startdate"    type="timestamp"/>
+        <field  name="enddate"  type="timestamp"/>
+        <field name="notes" type="text"/>
+        <field name="trashed" type="boolean"/>
+        <field name="companyid" type="integer"/>
+        <field name="frequency" type="integer"/>
+        <field name="interv" type="integer"/>
+        <field name="exttype" type="text"/>
+        <field name="extid" type="integer"/>
+        <field name="exticon" type="text"/>
+        <field name="extdata" type="text"/>
+        
+		<key	field="id"	type="unique"/>
+	</table>
+
+	<sequence	name="innowork_calendar_id_seq"/>
+
+</database>
