@@ -64,5 +64,13 @@
 			icontype="apps" domainpanel="innoworkcalendar" miniicon="edit"
 			summaryname="calendar-name" showmode="list" />
 
+        <dashboardwidget
+            name="innoworkmycalendar"
+            panel="innoworkcalendar"
+            file="InnoworkMyCalendarDashboardWidget.php"
+            catalog="innowork-calendar::calendar_dashboard"
+            title="mycalendar"
+            class="\\Shared\\Dashboard\\InnoworkMyCalendarDashboardWidget" />
+            
 	</components>
 </application>
