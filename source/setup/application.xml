@@ -70,7 +70,7 @@
             file="InnoworkMyCalendarDashboardWidget.php"
             catalog="innowork-calendar::calendar_dashboard"
             title="mycalendar"
-            class="\\Shared\\Dashboard\\InnoworkMyCalendarDashboardWidget" />
-            
+            class="\Shared\Dashboard\InnoworkMyCalendarDashboardWidget" />
+
 	</components>
 </application>

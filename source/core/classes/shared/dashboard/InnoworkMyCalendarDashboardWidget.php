@@ -16,36 +16,36 @@ class InnoworkMyCalendarDashboardWidget extends \Innomatic\Desktop\Dashboard\Das
         		'innowork-calendar::calendar_dashboard',
         		InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
         );
-        
+
         require_once('innowork/calendar/InnoworkEvent.php');
         $calendar = new InnoworkEvent(
         		\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
         		\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
-        
+
         $events = array();
         $search_result = $calendar->search(array('startdate' => date('Y').'-'.date('m')), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId());
         $country = new \Innomatic\Locale\LocaleCountry(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry());
-        
+
         if (is_array($search_result)) {
         	$definition = '';
-        
+
         	$today_array['year'] = date('Y');
         	$today_array['mon'] = date('n');
         	$today_array['mday'] = date('d');
-        
+
         	while (list ($id, $fields) = each($search_result)) {
         		$event_start_array = $country->getDateArrayFromSafeTimestamp($fields['startdate']);
         		$event_end_array = $country->getDateArrayFromSafeTimestamp($fields['enddate']);
-        
+
         		$events[$event_start_array['year']][$event_start_array['mon']][$event_start_array['mday']][$fields['id']] = array('sh' => $event_start_array['hours'], 'sm' => $event_start_array['minutes'], 'eh' => $event_end_array['hours'], 'em' => $event_end_array['minutes'], 'event' => $fields['description'], 'type' => $fields['ownerid'] == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId() ? 'private' : 'public');
-        
+
         		if ($event_start_array['year'] <= $today_array['year'] and $event_end_array['year'] >= $today_array['year'] and $event_start_array['mon'] <= $today_array['mon'] and $event_end_array['mon'] >= $today_array['mon'] and $event_start_array['mday'] <= $today_array['mday'] and $event_end_array['mday'] >= $today_array['mday']) {
         			if (strlen($fields['description']) > 25)
         				$description = substr($fields['description'], 0, 22).'...';
         			else
         				$description = $fields['description'];
-        
+
         			$definition.= '<horizgroup><name>eventhgroup</name>
         <children>
           <label><name>eventlabel</name>
@@ -67,7 +67,7 @@ class InnoworkMyCalendarDashboardWidget extends \Innomatic\Desktop\Dashboard\Das
       </horizgroup>';
         		}
         	}
-        
+
         	$result = '<vertgroup><name>eventsgroup</name>
     <children>
     <innoworkcalendar><name>calendar</name>
@@ -86,23 +86,24 @@ class InnoworkMyCalendarDashboardWidget extends \Innomatic\Desktop\Dashboard\Das
     <vertgroup><name>items</name>
       <children>'.$definition.'    </children>
     </vertgroup>
-      		
+
     <horizbar/>
-      		
+
   <button>
     <args>
       <horiz>true</horiz>
       <frame>false</frame>
       <themeimage>mathadd</themeimage>
+      <mainaction>true</mainaction>
       <label>'.$locale_catalog->getStr('new_event.button').'</label>
       <action>'.WuiXml::cdata(\Innomatic\Wui\Dispatch\WuiEventsCall::buildEventsCallString('innoworkcalendar', array(array('view', 'newevent', array())))).'</action>
     </args>
   </button>
-      		
+
     </children>
   </vertgroup>';
         }
-        
+
         return $result;
     }
 
